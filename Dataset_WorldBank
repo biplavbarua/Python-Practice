@@ -1,0 +1,5 @@
+import pandas as pd
+import seaborn as 
+
+df = pd.read_csv(r'/Users/biplavbarua/Downloads/WorldBank.csv')
+print(df.head(10))

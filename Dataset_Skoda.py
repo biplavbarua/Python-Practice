@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 #Load the CSV File
 df = pd.read_csv(r'/Users/biplavbarua/Downloads/skoda.csv')
@@ -54,3 +56,27 @@ print(f"\nAverage price by transmission type: \n{average_price_by_transmission}"
 #Data Sorting Sort by 'price' in descending order
 sorted_by_price = df.sort_values('price', ascending=False)
 print(f"\nHighest priced car: \n{sorted_by_price.head(10)}")
+
+#Correlation Analysis: Correlation between 'engineSize' and 'price'
+correlation = df[['engineSize', 'price']].corr()
+print(f"\nCorrelation between 'engineSize' and 'price': \n{correlation}")
+
+#pip install matplotlib in command prompt
+fuel_type_counts = df['fuelType'].value_counts()
+fuel_type_counts.plot(kind='bar', title="Count of Cars by Fuel Type", color="yellow")
+plt.ylabel("Count")
+plt.show()
+
+#Box Plot for mileage
+#pip install seaborn in command prompt
+sns.boxplot(y=df['mileage'], color ='green')
+plt.ylabel('Mileage')
+plt.title('Mileage Distribution')
+plt.show()
+
+## 10. Conditional Seletion: Select cars with 'mileage' > 30000 and 'fuelType' = 'Diesel'
+diesel_cars_high_mileage = df[(df['mileage'] > 30000) & (df['fuelType'] == 'Diesel')]
+print(f"\nNo. of Diesel cars with mileage > 30,000: {diesel_cars_high_mileage.shape[0]}")
+
+automatic_cars_high_mileage = df[(df['mileage'] > 40000) & (df['transmission'] == 'Automatic')]
+print(f"\n No. of Automatic cars with mileage > 40,000: {automatic_cars_high_mileage.shape[0]}")
